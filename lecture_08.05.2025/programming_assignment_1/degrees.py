@@ -1,3 +1,5 @@
+""" Gruppenmitglieder: Elian Panke, Justin Kittan, Fabian Krohnen """
+
 import csv
 import sys
 
@@ -91,14 +93,17 @@ def shortest_path(source, target):
 
     If no possible path, returns None.
     """
+    # Initialize the search tree
     start = Node(state=source, parent=None, action=None)
     frontier = QueueFrontier()
     frontier.add(start)
     explored = set()
-    
+
+	# Check if source and target are the same
     while not frontier.empty():
         node = frontier.remove()
-        
+
+	   	# Check if we have reached the target 
         if node.state == target:
             path = []
             while node.parent is not None:
@@ -109,6 +114,7 @@ def shortest_path(source, target):
         
         explored.add(node.state)
         
+		# Expand the search tree
         for movie_id, person_id in neighbors_for_person(node.state):
             if person_id not in explored and not frontier.contains_state(person_id):
                 child = Node(state=person_id, parent=node, action=movie_id)
